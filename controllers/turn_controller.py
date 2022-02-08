@@ -5,11 +5,18 @@ from views.matchs_views import MatchView
 
 
 class TurnController:
-    def __init__(self, tour: Tours):
-        self.tour = Tours
 
     @classmethod
-    def build_match_list(cls, participant):
+    def build_turns(cls, tournois):
+        round_list = []
+        for nb_turn in range(tournois.nombre_de_tour):
+            round = Tours(f"Round {nb_turn + 1}")
+            round_list.append(round)
+            tournois.turns.append(round)
+        return round_list
+
+    @classmethod
+    def build_match_list(cls, participant, tour):
         p1 = 0
         p2 = 0
         nb_paire = 0
@@ -19,6 +26,7 @@ class TurnController:
         second_half = participant[middle_index:]
         while nb_paire < len(participant) / 2:
             match = Match(first_half[p1], second_half[p2])
+            tour.match_list.append(match)
             matchs_list.append(match)
             p1 += 1
             p2 += 1
