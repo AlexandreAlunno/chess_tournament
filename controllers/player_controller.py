@@ -13,10 +13,12 @@ class PlayerController:
 
 if __name__ == "__main__":
     joueur = PlayerController.build_joueur()
-    print(joueur)
-    db = TinyDB("db.json")
-    players_table = db.table("players")
-    players_table.truncate()
+    #print(joueur)
+    db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+    players_table = db.table("players joueur")
+    #players_table.truncate()
     serelized_player = joueur.serializer_joueur()
     players_table.insert(serelized_player)
-    print(players_table.all)
+    #serialized_players_table = players_table.all()
+    print(type(serelized_player))
+    print(players_table)

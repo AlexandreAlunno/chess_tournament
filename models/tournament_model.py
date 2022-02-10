@@ -15,10 +15,10 @@ class Tournois:
             "lieu" : self.lieu,
             "date" : self.date,
             "nombre de joueur" : self.nombre_de_joueur,
-            "nombre de tour" : self.nombre_de_tour
+            "nombre de tour" : self.nombre_de_tour,
+            "tours": []
         }
         return serialized_tournament
 
-
     def __str__(self):
-        return f"{self.nom, self.lieu, self.date, self.nombre_de_joueur, self.nombre_de_tour}"
+        return f"{self.nom, self.lieu, self.date, self.nombre_de_joueur, self.nombre_de_tour}, {self.turns}"

@@ -12,6 +12,16 @@ class Match:
         self.joueur1.point += int(resulat_joueur1)
         self.joueur2.point += int(resulat_joueur2)
         self.resultat = resultat_match
+        print("---------------------------")
+
+    def serializer_match(self):
+        serialized_match = {
+            "joueur1": self.joueur1.prenom,
+            "joueur2": self.joueur2.prenom,
+            "resultat": self.resultat
+        }
+        return serialized_match
 
     def __str__(self):
-        return f"{self.joueur1} / {self.joueur2}"
+        return f"{self.joueur1} / {self.joueur2} / {self.resultat}"
+

@@ -7,6 +7,7 @@ from views.player_views import ViewJoueur
 from views.matchs_views import MatchView
 from controllers.player_controller import PlayerController
 from controllers.turn_controller import TurnController
+from tinydb import TinyDB
 
 
 class TournamentController:
@@ -44,6 +45,14 @@ class TournamentController:
     def build_turn(cls, tournois):
         round_list = TurnController.build_turns(tournois)
         return round_list
+
+    @classmethod
+    def save_tournament(cls, serialized_tournament):
+        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        tournament_table = db.table("tournois")
+        tournament_table.insert(serialized_tournament)
+        return tournament_table
+
 """
    @classmethod
     def tournois(cls):
@@ -58,20 +67,19 @@ class TournamentController:
 
 if __name__ == "__main__":
     tournois = TournamentController.build_tournois()
-    participant = TournamentController.build_participant_list()
-    turn_list = TournamentController.build_turn()
-    for turn in tournois.turns:
-        #print(turn)
+    serialized_tournois = tournois.serialized_tournament()
+    participant = TournamentController.build_participant_list(tournois)
+    round_list = TournamentController.build_turn(tournois)
+    print(serialized_tournois)
+    for turn in round_list:
+        seriallized_round = turn.serializer_tour()
+        print(seriallized_round)
         match_list = TurnController.build_match_list(participant, turn)
-        #print(turn)
-        #print(match_list[0])
         for match in match_list:
             match.resultats()
-            #print(match.resultat)
-        participant = TournamentController.trie_score(participant)
-        ViewTournament.next_turn()
-        #print(match_list[0])
-
-
+            seriallized_round["match_list"].append(match.serializer_match())
+        serialized_tournois["tours"].append(seriallized_round)
+    print(serialized_tournois)
+    TournamentController.save_tournament(serialized_tournois)
 
 

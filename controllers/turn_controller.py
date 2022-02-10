@@ -3,7 +3,6 @@ from models.match_model import Match
 from models.player_model import Joueur
 from views.matchs_views import MatchView
 
-
 class TurnController:
 
     @classmethod
@@ -36,6 +35,6 @@ class TurnController:
 
 if __name__ == "__main__":
     tournois = TournamentController.build_tournois()
-    participant = TournamentController.build_participant_list()
-    matchs_list = TurnController.build_match_list(participant)
-    print(matchs_list[1])
+    round_list = TurnController.build_turns(tournois)
+
+
