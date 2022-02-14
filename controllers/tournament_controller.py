@@ -7,6 +7,7 @@ from views.player_views import ViewJoueur
 from views.matchs_views import MatchView
 from controllers.player_controller import PlayerController
 from controllers.turn_controller import TurnController
+from controllers.match_controller import MatchController
 from tinydb import TinyDB
 
 
@@ -70,16 +71,18 @@ if __name__ == "__main__":
     serialized_tournois = tournois.serialized_tournament()
     participant = TournamentController.build_participant_list(tournois)
     round_list = TournamentController.build_turn(tournois)
-    print(serialized_tournois)
+    #print(serialized_tournois)
     for turn in round_list:
         seriallized_round = turn.serializer_tour()
-        print(seriallized_round)
+        #print(seriallized_round)
         match_list = TurnController.build_match_list(participant, turn)
         for match in match_list:
-            match.resultats()
+            print(match)
+            MatchController.resultat(match)
+            print(match)
             seriallized_round["match_list"].append(match.serializer_match())
         serialized_tournois["tours"].append(seriallized_round)
     print(serialized_tournois)
-    TournamentController.save_tournament(serialized_tournois)
+    #TournamentController.save_tournament(serialized_tournois)
 
 

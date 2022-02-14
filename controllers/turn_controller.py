@@ -2,6 +2,8 @@ from models.turn_model import Tours
 from models.match_model import Match
 from models.player_model import Joueur
 from views.matchs_views import MatchView
+from controllers.match_controller import MatchController
+
 
 class TurnController:
 
@@ -24,7 +26,7 @@ class TurnController:
         first_half = participant[:middle_index]
         second_half = participant[middle_index:]
         while nb_paire < len(participant) / 2:
-            match = Match(first_half[p1], second_half[p2])
+            match = MatchController.build_match(first_half[p1], second_half[p2])
             tour.match_list.append(match)
             matchs_list.append(match)
             p1 += 1
