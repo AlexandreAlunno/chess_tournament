@@ -16,14 +16,18 @@ class ViewTournament:
 
     @staticmethod
     def debut_tournoi():
-        debut = False
-        while debut == False:
+        print("Bienvenue dans ce programme de gestion de tournois d'echec.")
+        charger = 0
+        nouveau = 0
+        while nouveau == False:
             start_tournament = input("Charger un tournois existant ou créer un tournoi ?"
-                                     "(Taper 1 pour charger 2 pour créer) ")
+                                     "(Taper 1 pour céer 2 pour charger) ")
             if start_tournament == "1":
-                debut = True
+                nouveau = 1
+                return nouveau
             elif start_tournament == "2":
-                debut = True
+                charger = 2
+                return charger
             else:
                 print("Entrer 1 ou 2")
 
@@ -31,7 +35,7 @@ class ViewTournament:
     def next_turn():
         turn_over = False
         while turn_over == False:
-            next_turn = input("Commencer le tour ?(oui/non) ")
+            next_turn = input("Passer au tour suivant ?(oui/non) ")
             if next_turn == "oui":
                 turn_over = True
                 time.sleep(1)
@@ -44,5 +48,6 @@ class ViewTournament:
 
 if __name__ == "__main__":
     #ViewTournament.get_data_tournois()
-    ViewTournament.debut_tournoi()
+    debut = ViewTournament.debut_tournoi()
+    print(debut)
     #ViewTournament.next_turn()

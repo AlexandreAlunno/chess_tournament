@@ -11,9 +11,21 @@ class MatchController:
 
     @classmethod
     def resultat(cls, match):
+        MatchView.fin_match()
         resultat = MatchView.get_results(match)
-        match.joueur1.point += int(resultat[0])
-        match.joueur2.point += int(resultat[1])
+        match.joueur1.point += float(resultat[0])
+        match.joueur2.point += float(resultat[1])
         resultat_match = [match.joueur1.prenom, resultat[0]], [match.joueur2.prenom, resultat[1]]
         match.resultat = resultat_match
+
+    @classmethod
+    def deserialized_match(cls, serialized_match):
+        joueur1 = serialized_match()
+        joueur2 = serialized_match()
+        resultat = serialized_match()
+        match = Match(joueur1=joueur1, joueur2=joueur2)
+        match.resultat = resultat
+        return match
+
+
 

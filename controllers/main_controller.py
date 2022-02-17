@@ -8,6 +8,7 @@ from views.matchs_views import MatchView
 from controllers.player_controller import PlayerController
 from controllers.turn_controller import TurnController
 from controllers.tournament_controller import TournamentController
+from controllers.match_controller import MatchController
 
 
 class MainController:
@@ -28,12 +29,13 @@ class MainController:
             match_list = TurnController.build_match_list(participants, turn)  # create the matchs within the round
 
             for match in match_list:  # iterate on each match
-                match.resultats()  # inpute the results for each mmatch, save in the match instance
+                MatchController.resultat(match)  # inpute the results for each mmatch, save in the match instance
                 seriallized_round["match_list"].append(
                     match.serializer_match())  # serialized the mactch+results and add to the turn
 
             serialized_tournois["tours"].append(seriallized_round)  # add the ongoing turn to the serialized tournois
-        TournamentController.save_tournament(serialized_tournois)
+
+        return serialized_tournois
 
     @classmethod
     def load_tournament(cls):

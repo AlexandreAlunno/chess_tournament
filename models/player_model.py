@@ -15,7 +15,8 @@ class Joueur:
             "prenom" : self.prenom,
             "date_de_naissance" : self.date,
             "sexe" : self.sexe,
-            "classement" : self.classement
+            "classement" : self.classement,
+            "score" : self.point
         }
         return serialized_joueur
 

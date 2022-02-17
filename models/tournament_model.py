@@ -16,7 +16,8 @@ class Tournois:
             "date" : self.date,
             "nombre de joueur" : self.nombre_de_joueur,
             "nombre de tour" : self.nombre_de_tour,
-            "tours": []
+            "tours": [],
+            "player_list" : []
         }
         return serialized_tournament
 
