@@ -15,6 +15,11 @@ class ViewTournament:
         return data_tournois
 
     @staticmethod
+    def get_tournament_name():
+        loaded_tournament = input("Entrer le nom du tournois à charger")
+        return loaded_tournament
+
+    @staticmethod
     def debut_tournoi():
         print("Bienvenue dans ce programme de gestion de tournois d'echec.")
         charger = 0

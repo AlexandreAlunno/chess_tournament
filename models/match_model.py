@@ -1,3 +1,5 @@
+from models.player_model import Joueur
+
 class Match:
 
     def __init__(self, joueur1, joueur2):
@@ -7,6 +9,8 @@ class Match:
 
     def serializer_match(self):
         serialized_match = {
+            "joueur1": Joueur.serializer_joueur(self.joueur1),
+            "joueur2": Joueur.serializer_joueur(self.joueur2),
             "resultat": self.resultat
         }
         return serialized_match

@@ -61,16 +61,15 @@ class TournamentController:
         date = serialized_tournament["date"]
         nombre_de_joueur = serialized_tournament["nombre de joueur"]
         nombre_de_tour = serialized_tournament["nombre de tour"]
-        tours = serialized_tournament["tours"]
         player_list = serialized_tournament["player_list"]
-        tour = Tournois(nom=nom, lieu=lieu, date=date, nombre_de_joueur=nombre_de_joueur, nombre_de_tour=nombre_de_tour)
-        tour.turns = tours
-        tour.players_list = player_list
-        return tour
+        tournois = Tournois(nom=nom, lieu=lieu, date=date, nombre_de_joueur=nombre_de_joueur, nombre_de_tour=nombre_de_tour)
+        tournois.turns = []
+        tournois.players_list = player_list
+        return tournois
 
 
 if __name__ == "__main__":
-    tournois = TournamentController.build_tournois()
+    """tournois = TournamentController.build_tournois()
     serialized_tournois = tournois.serialized_tournament()
     participant = TournamentController.build_participant_list(tournois)
     for joueur in participant:
@@ -88,32 +87,32 @@ if __name__ == "__main__":
             seriallized_round["match_list"].append(match.serializer_match())
         TurnController.date_heure_fin(turn)
         serialized_tournois["tours"].append(seriallized_round)
-    TournamentController.save_tournament(serialized_tournois)
+    TournamentController.save_tournament(serialized_tournois)"""
 
-    """db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+    db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
     table_tournois = db.table("tournois")
     serializied_tournaments = table_tournois.all()
     #print(serializied_tournaments[0])
     #nom = input("nom ddu tournoi ")
-    charged_tournois = []
-    while charged_tournois == []:
-        nom = input("nom ddu tournoi ")
+    loaded_tournament = []
+    while loaded_tournament == []:
+        nom = "testdb"
         for index in range(0, len(serializied_tournaments)):
             if serializied_tournaments[index]["nom"] == nom:
-                charged_tournois = serializied_tournaments[index]
-    print(charged_tournois)
-    TournamentController.deserialized_tournois(charged_tournois)"""
+                loaded_tournament = serializied_tournaments[index]
 
-
-
-
-
-
-
-
-
-
-
+    loaded_tours = loaded_tournament["tours"]
+    deserialized_tournois = TournamentController.deserialized_tournois(loaded_tournament)
+    deserialized_tours_list = []
+    deserialized_match_list = []
+    for tour in loaded_tours:
+        deserialized_tour = TurnController.deserialized_turn(tour)
+        for match in deserialized_tour.match_list:
+            deserialized_match = MatchController.deserialized_match(match)
+            deserialized_match_list.append(deserialized_match)
+            deserialized_tour.match_list = deserialized_match_list
+        deserialized_tours_list.append(deserialized_tour)
+    deserialized_tournois.turns = deserialized_tours_list
 
 
 

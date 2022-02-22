@@ -1,7 +1,7 @@
 from views.matchs_views import MatchView
 from models.match_model import Match
 from models.player_model import Joueur
-
+from controllers.player_controller import PlayerController
 
 class MatchController:
     @classmethod
@@ -20,9 +20,9 @@ class MatchController:
 
     @classmethod
     def deserialized_match(cls, serialized_match):
-        joueur1 = serialized_match()
-        joueur2 = serialized_match()
-        resultat = serialized_match()
+        joueur1 = PlayerController.deserialized_joueur(serialized_match["joueur1"])
+        joueur2 = PlayerController.deserialized_joueur(serialized_match["joueur2"])
+        resultat = serialized_match["resultat"]
         match = Match(joueur1=joueur1, joueur2=joueur2)
         match.resultat = resultat
         return match

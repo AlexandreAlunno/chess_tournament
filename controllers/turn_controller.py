@@ -55,11 +55,11 @@ class TurnController:
 
     @classmethod
     def deserialized_turn(cls, serialized_turn):
-        nom_tours = serialized_turn("nom_tour")
-        match_list = serialized_turn("match_list")
-        date_debut = serialized_turn("début")
-        date_fin = serialized_turn("fin")
-        tour = Tours(nom_tours=nom_tours)
+        nom_tour = serialized_turn["nom_tour"]
+        match_list = serialized_turn["match_list"]
+        date_debut = serialized_turn["début"]
+        date_fin = serialized_turn["fin"]
+        tour = Tours(nom_tours=nom_tour)
         tour.match_list = match_list
         tour.date_debut = date_debut
         tour.date_fin = date_fin
