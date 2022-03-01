@@ -23,6 +23,7 @@ class TurnController:
         p2 = 0
         nb_paire = 0
         matchs_list = []
+        participant = sorted(participant, key=lambda joueur: joueur.point, reverse=True)
         middle_index = len(participant) // 2
         first_half = participant[:middle_index]
         second_half = participant[middle_index:]
@@ -59,8 +60,12 @@ class TurnController:
         match_list = serialized_turn["match_list"]
         date_debut = serialized_turn["début"]
         date_fin = serialized_turn["fin"]
+        deserialized_match_list = []
+        for match in serialized_turn["match_list"]:
+            deserialized_match = MatchController.deserialized_match(match)
+            deserialized_match_list.append(deserialized_match)
         tour = Tours(nom_tours=nom_tour)
-        tour.match_list = match_list
+        tour.match_list = deserialized_match_list
         tour.date_debut = date_debut
         tour.date_fin = date_fin
         return tour

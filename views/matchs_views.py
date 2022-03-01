@@ -26,3 +26,4 @@ class MatchView:
 
 if __name__ == "__main__":
     MatchView.get_results()
+    MatchView.fin_match()

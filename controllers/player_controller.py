@@ -17,6 +17,7 @@ class PlayerController:
         date_de_naissance = serialized_joueur["date_de_naissance"]
         sexe = serialized_joueur["sexe"]
         classement = serialized_joueur["classement"]
+        score = serialized_joueur["score"]
         joueur = Joueur(nom=nom, prenom=prenom, date_de_naissance=date_de_naissance, sexe=sexe, classement=classement, point=0)
         return joueur
 

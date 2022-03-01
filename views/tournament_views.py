@@ -1,6 +1,5 @@
 import time
 
-
 class ViewTournament:
     @staticmethod
     def get_data_tournois():
@@ -50,9 +49,24 @@ class ViewTournament:
             else:
                 print("Réponse attendus: oui/non")
 
+    @staticmethod
+    def continuer():
+        print("Fin du tour")
+        save_tournament = input("Voulez-vous continuer le tournois ou le sauvegarder ? "
+                                    "(0 = continuer, 1 = sauvegarder) ")
+        if save_tournament == "0":
+            continuer = 0
+            return continuer
+        elif save_tournament == "1":
+            sauvegarder = 1
+            return sauvegarder
+        else:
+            print("1 = continuer, 2 = sauvegarder")
 
 if __name__ == "__main__":
     #ViewTournament.get_data_tournois()
-    debut = ViewTournament.debut_tournoi()
-    print(debut)
+    #debut = ViewTournament.debut_tournoi()
+    #print(debut)
     #ViewTournament.next_turn()
+    continuer = ViewTournament.continuer()
+    print(continuer)
