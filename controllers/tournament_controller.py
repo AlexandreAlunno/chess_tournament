@@ -8,7 +8,8 @@ from views.matchs_views import MatchView
 from controllers.player_controller import PlayerController
 from controllers.turn_controller import TurnController
 from controllers.match_controller import MatchController
-from tinydb import TinyDB, Query
+from tinydb import TinyDB, Query, where
+from tinydb.operations import delete
 
 
 class TournamentController:
@@ -55,13 +56,32 @@ class TournamentController:
         return tournament_table
 
     @classmethod
+    def load_tournament(cls):
+        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        table_tournois = db.table("tournois")
+        serializied_tournaments = table_tournois.all()
+
+        nom_tournois = input("nom ddu tournoi ")
+        # nom_tournois = "test_unfinished"
+        loaded_tournament = []
+        while loaded_tournament == []:
+            for index in range(0, len(serializied_tournaments)):
+                if serializied_tournaments[index]["nom"] == nom_tournois:
+                    loaded_tournament = serializied_tournaments[index]
+
+        return loaded_tournament
+
+    @classmethod
     def deserialized_tournois(cls, serialized_tournament):
         nom = serialized_tournament["nom"]
         lieu = serialized_tournament["lieu"]
         date = serialized_tournament["date"]
         nombre_de_joueur = serialized_tournament["nombre de joueur"]
         nombre_de_tour = serialized_tournament["nombre de tour"]
-        player_list = serialized_tournament["player_list"]
+        player_list = []
+        for joueur in serialized_tournament["player_list"]:
+            deserialized_joueur = PlayerController.deserialized_joueur(joueur)
+            player_list.append(deserialized_joueur)
         deserialized_tours_list = []
         for tour in serialized_tournament["tours"]:
             deserialized_tour = TurnController.deserialized_turn(tour)
@@ -74,7 +94,7 @@ class TournamentController:
 
 if __name__ == "__main__":
 
-    """fin_tournois = False
+    fin_tournois = False
 
     while fin_tournois == False:
 
@@ -83,6 +103,7 @@ if __name__ == "__main__":
 
         participant = TournamentController.build_participant_list(tournois)
         round_list = TournamentController.build_turn(tournois)
+        print(round_list)
 
         actual_turn = 0
         for turn in round_list:
@@ -113,22 +134,74 @@ if __name__ == "__main__":
                 TournamentController.save_tournament(serialized_tournois)
                 fin_tournois = True
                 print("tournois fini")
-                break"""
+                break
 
 
-    db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+    """db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
     table_tournois = db.table("tournois")
     serializied_tournaments = table_tournois.all()
-    #print(serializied_tournaments[0])
+
     #nom = input("nom ddu tournoi ")
+    nom_tournois = "test_unfinished"
     loaded_tournament = []
     while loaded_tournament == []:
-        nom = "test_unfinished"
         for index in range(0, len(serializied_tournaments)):
-            if serializied_tournaments[index]["nom"] == nom:
+            if serializied_tournaments[index]["nom"] == nom_tournois:
                 loaded_tournament = serializied_tournaments[index]
+
     tournament = TournamentController.deserialized_tournois(loaded_tournament)
+    serialized_tournois = tournament.serialized_tournament()
+
     participant = tournament.players_list
+
+    nb_turn = len(tournament.turns)
+
+    actual_turn = 0
+    while len(tournament.turns) < tournament.nombre_de_tour:
+        round_list = TurnController.build_turns(tournament, nb_turn)
+
+        for round in round_list:
+            match_list = TurnController.build_match_list(participant, round)
+            TurnController.date_heure_debut(round)
+            seriallized_round = round.serializer_tour()
+
+            for match in match_list:
+                MatchController.resultat(match)
+                seriallized_round["match_list"].append(match.serializer_match())
+
+            TurnController.date_heure_fin(round)
+            serialized_tournois["tours"].append(seriallized_round)
+
+            actual_turn += 1
+            if actual_turn != tournament.nombre_de_tour:
+                fin_tour = ViewTournament.continuer()
+                if fin_tour == 0:
+                    pass
+                elif fin_tour == 1:
+                    for joueur in participant:
+                        serialized_tournois["player_list"].append(joueur.serializer_joueur())
+                    TournamentController.save_tournament(serialized_tournois)
+                    fin_tournois = True
+                    break
+            else:
+                for joueur in participant:
+                    serialized_tournois["player_list"].append(joueur.serializer_joueur())
+                table_tournois.remove(where("nom")==f"{nom_tournois}")
+                TournamentController.save_tournament(serialized_tournois)
+                fin_tournois = True
+                print("tournois fini")
+                break"""
+
+    """nom_tournois = "test_unfinished"
+    db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+    table_tournois = db.table("tournois")
+    table_tournois.remove(where("nom") == f"{nom_tournois}")"""
+
+
+
+
+
+
 
 
 

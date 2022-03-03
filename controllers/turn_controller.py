@@ -9,9 +9,9 @@ from controllers.match_controller import MatchController
 class TurnController:
 
     @classmethod
-    def build_turns(cls, tournois):
+    def build_turns(cls, tournois, star_nb_turn=0):
         round_list = []
-        for nb_turn in range(tournois.nombre_de_tour):
+        for nb_turn in range(star_nb_turn, tournois.nombre_de_tour, 1):
             round = Tours(f"Round {nb_turn + 1}")
             round_list.append(round)
             tournois.turns.append(round)

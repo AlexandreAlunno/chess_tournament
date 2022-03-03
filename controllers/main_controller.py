@@ -9,70 +9,121 @@ from controllers.player_controller import PlayerController
 from controllers.turn_controller import TurnController
 from controllers.tournament_controller import TournamentController
 from controllers.match_controller import MatchController
-from tinydb import TinyDB
+from tinydb import TinyDB, where
 
 
 class MainController:
     @classmethod
     def new_tournament(cls):
-        tournois = TournamentController.build_tournois()  # create tournament
+        fin_tournois = False
 
-        serialized_tournois = tournois.serialized_tournament()  # serialized the tournament
+        while fin_tournois == False:
 
-        participants = TournamentController.build_participant_list(
-            tournois)  # create players in number set in tournament
+            tournois = TournamentController.build_tournois()
+            serialized_tournois = tournois.serialized_tournament()
 
-        turn_list = TournamentController.build_turn(tournois)  # create the list of rounds
+            participant = TournamentController.build_participant_list(tournois)
+            round_list = TournamentController.build_turn(tournois)
 
-        for turn in turn_list:  # iterate on each round
-            seriallized_round = turn.serializer_tour()  # serialized the ongoing turn
+            actual_turn = len(tournois.turns)
+            for turn in round_list:
+                TurnController.date_heure_debut(turn)
+                seriallized_round = turn.serializer_tour()
+                match_list = TurnController.build_match_list(participant, turn)
 
-            match_list = TurnController.build_match_list(participants, turn)  # create the matchs within the round
+                for match in match_list:
+                    MatchController.resultat(match)
+                    seriallized_round["match_list"].append(match.serializer_match())
 
-            for match in match_list:  # iterate on each match
-                MatchController.resultat(match)  # inpute the results for each mmatch, save in the match instance
-                seriallized_round["match_list"].append(
-                    match.serializer_match())  # serialized the mactch+results and add to the turn
+                TurnController.date_heure_fin(turn)
+                serialized_tournois["tours"].append(seriallized_round)
 
-            serialized_tournois["tours"].append(seriallized_round)  # add the ongoing turn to the serialized tournois
+                actual_turn += 1
+                if actual_turn != tournois.nombre_de_tour:
+                    fin_tour = ViewTournament.continuer()
+                    if fin_tour == 0:
+                        pass
+                    elif fin_tour == 1:
+                        for joueur in participant:
+                            serialized_tournois["player_list"].append(joueur.serializer_joueur())
 
-        return serialized_tournois
+                        TournamentController.save_tournament(serialized_tournois)
+                        fin_tournois = True
+                        print("Tournois fini et sauvegardé")
+                        break
+                else:
+                    for joueur in participant:
+                        serialized_tournois["player_list"].append(joueur.serializer_joueur())
+                    TournamentController.save_tournament(serialized_tournois)
+                    fin_tournois = True
+                    print("Tournois fini et sauvegardé")
+                    break
 
     @classmethod
     def load_tournament(cls):
+        fin_tournois = False
+
         db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
         table_tournois = db.table("tournois")
-        serializied_tournaments = table_tournois.all()
-        nom = input("nom ddu tournoi ")
-        loaded_tournament = []
-        while loaded_tournament == []:
-            for index in range(0, len(serializied_tournaments)):
-                if serializied_tournaments[index]["nom"] == nom:
-                    loaded_tournament = serializied_tournaments[index]
 
-        loaded_tours = loaded_tournament["tours"]
-        deserialized_tournois = TournamentController.deserialized_tournois(loaded_tournament)
-        deserialized_tours_list = []
-        deserialized_match_list = []
+        player_list = []
 
-        for tour in loaded_tours:
-            deserialized_tour = TurnController.deserialized_turn(tour)
-            for match in deserialized_tour.match_list:
-                deserialized_match = MatchController.deserialized_match(match)
-                deserialized_match_list.append(deserialized_match)
-                deserialized_tour.match_list = deserialized_match_list
-            deserialized_tours_list.append(deserialized_tour)
-        deserialized_tournois.turns = deserialized_tours_list
+        while fin_tournois == False:
 
-        return deserialized_tournois
+            loaded_tournament = TournamentController.load_tournament()
+            nom_tournois = loaded_tournament["nom"]
+            tournament = TournamentController.deserialized_tournois(loaded_tournament)
+
+            participant = tournament.players_list
+
+            nb_turn = len(tournament.turns)
+            actual_turn = len(tournament.turns)
+            while len(tournament.turns) < tournament.nombre_de_tour:
+                round_list = TurnController.build_turns(tournament, nb_turn)
+
+                for round in round_list:
+                    TurnController.date_heure_debut(round)
+                    match_list = TurnController.build_match_list(participant, round)
+                    TurnController.date_heure_debut(round)
+                    seriallized_round = round.serializer_tour()
+
+                    for match in match_list:
+                        MatchController.resultat(match)
+                        seriallized_round["match_list"].append(match.serializer_match())
+
+                    TurnController.date_heure_fin(round)
+                    loaded_tournament["tours"].append(seriallized_round)
+
+                    actual_turn += 1
+
+                    if actual_turn != tournament.nombre_de_tour:
+                        fin_tour = ViewTournament.continuer()
+
+                        if fin_tour == 1:
+                            for joueur in participant:
+                                serialized_player = joueur.serializer_joueur()
+                                player_list.append(serialized_player)
+                                loaded_tournament["player_list"] = player_list
+
+                            table_tournois.remove(where("nom") == f"{nom_tournois}")
+                            TournamentController.save_tournament(loaded_tournament)
+                            fin_tournois = True
+                            break
+                    else:
+                        for joueur in participant:
+                            serialized_player = joueur.serializer_joueur()
+                            player_list.append(serialized_player)
+                            loaded_tournament["player_list"] = player_list
+
+                        table_tournois.remove(where("nom") == f"{nom_tournois}")
+                        TournamentController.save_tournament(loaded_tournament)
+                        fin_tournois = True
+                        print("tournois fini")
+                        break
+
 
 if __name__ == "__main__":
-    loaded_tournament = MainController.load_tournament()
-    while len(loaded_tournament.turns) < loaded_tournament.nombre_de_tour:
-        participant = loaded_tournament.players_list
-        tours = TournamentController.build_turn(loaded_tournament)
-        for turn in tours:
-            match_list = TurnController.build_match_list(participant, turn)
-            for match in match_list:
-                MatchController.resultat(match)
+    #MainController.new_tournament()
+    MainController.load_tournament()
+
 
