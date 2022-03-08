@@ -5,6 +5,7 @@ from models.match_model import Match
 from views.tournament_views import ViewTournament
 from views.player_views import ViewJoueur
 from views.matchs_views import MatchView
+from views.main_view import MainView
 from controllers.player_controller import PlayerController
 from controllers.turn_controller import TurnController
 from controllers.tournament_controller import TournamentController
@@ -45,6 +46,7 @@ class MainController:
                         pass
                     elif fin_tour == 1:
                         for joueur in participant:
+                            PlayerController.modify_classement(joueur)
                             serialized_tournois["player_list"].append(joueur.serializer_joueur())
 
                         TournamentController.save_tournament(serialized_tournois)
@@ -53,7 +55,9 @@ class MainController:
                         break
                 else:
                     for joueur in participant:
+                        PlayerController.modify_classement(joueur)
                         serialized_tournois["player_list"].append(joueur.serializer_joueur())
+
                     TournamentController.save_tournament(serialized_tournois)
                     fin_tournois = True
                     print("Tournois fini et sauvegardé")
@@ -101,6 +105,7 @@ class MainController:
 
                         if fin_tour == 1:
                             for joueur in participant:
+                                PlayerController.modify_classement(joueur)
                                 serialized_player = joueur.serializer_joueur()
                                 player_list.append(serialized_player)
                                 loaded_tournament["player_list"] = player_list
@@ -111,6 +116,7 @@ class MainController:
                             break
                     else:
                         for joueur in participant:
+                            PlayerController.modify_classement(joueur)
                             serialized_player = joueur.serializer_joueur()
                             player_list.append(serialized_player)
                             loaded_tournament["player_list"] = player_list
@@ -122,8 +128,23 @@ class MainController:
                         break
 
 
+    @classmethod
+    def manage_player(cls):
+        menu = MainView.manage_player_db()
+        if menu == 1:
+            PlayerController.modify_saved_player()
+        elif menu == 2:
+            PlayerController.save_player()
+        elif menu == 3:
+            PlayerController.erase_player()
+
+
 if __name__ == "__main__":
-    #MainController.new_tournament()
-    MainController.load_tournament()
+    db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+    table_tournois = db.table("tournois")
+    MainController.new_tournament()
+    #MainController.load_tournament()
+    #table_tournois.truncate()
+
 
 

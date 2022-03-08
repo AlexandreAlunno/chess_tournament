@@ -1,5 +1,6 @@
 import time
 
+
 class ViewTournament:
     @staticmethod
     def get_data_tournois():
@@ -14,26 +15,32 @@ class ViewTournament:
         return data_tournois
 
     @staticmethod
+    def new_player():
+        choose = False
+
+        print("Voulez-vous créer un nouveau joueur ou en charger un existant ?")
+        print("1 = Créer nouveau joueur.")
+        print("2 = Charger joueur.")
+
+        while choose == False:
+            choice = input("Créer ou charger: ")
+
+            if choice == "1":
+                choose = True
+
+            elif choice == "2":
+                choose = True
+
+            else:
+                print("Entrer 1 / 2")
+
+            return choice
+
+
+    @staticmethod
     def get_tournament_name():
         loaded_tournament = input("Entrer le nom du tournois à charger")
         return loaded_tournament
-
-    @staticmethod
-    def debut_tournoi():
-        print("Bienvenue dans ce programme de gestion de tournois d'echec.")
-        charger = 0
-        nouveau = 0
-        while nouveau == False:
-            start_tournament = input("Charger un tournois existant ou créer un tournoi ?"
-                                     "(Taper 1 pour céer 2 pour charger) ")
-            if start_tournament == "1":
-                nouveau = 1
-                return nouveau
-            elif start_tournament == "2":
-                charger = 2
-                return charger
-            else:
-                print("Entrer 1 ou 2")
 
     @staticmethod
     def next_turn():
@@ -62,6 +69,10 @@ class ViewTournament:
             return sauvegarder
         else:
             print("1 = continuer, 2 = sauvegarder")
+
+
+
+
 
 if __name__ == "__main__":
     #ViewTournament.get_data_tournois()

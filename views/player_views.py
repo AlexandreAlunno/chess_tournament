@@ -12,5 +12,55 @@ class ViewJoueur:
 
         return data_joueur
 
+    @staticmethod
+    def get_player_name():
+        nom_joueur = input("Nom du joueur: ")
+        return nom_joueur
+
+    @staticmethod
+    def modify_data_joueur():
+        choose = False
+        menu = 0
+
+        print("Quelle donnée voulez-vous modifier ?")
+        print("1 = Nom")
+        print("2 = Prenom")
+        print("3 = Date de naissance")
+        print("4 = sexe")
+        print("5 = classement")
+
+        while choose == False:
+            choice = int(input("Choix de menu: "))
+
+            if choice == 1:
+                menu = "name"
+                choose = True
+                return menu
+
+            elif choice == 2:
+                menu = "prenom"
+                choose = True
+                return menu
+
+            elif choice == 3:
+                menu = "date_de_naissance"
+                choose = True
+                return menu
+
+            elif choice == 4:
+                menu = "sexe"
+                choose = True
+                return menu
+
+            elif choice == 5:
+                menu = "classement"
+                choose = True
+                return menu
+
+            else:
+                print("Entrer 1 / 2 / 3 / 4 / 5")
+
+
+
 if __name__ == "__main__":
     ViewJoueur.get_data_joueur()

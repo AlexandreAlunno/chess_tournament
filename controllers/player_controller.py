@@ -1,4 +1,4 @@
-from tinydb import TinyDB
+from tinydb import TinyDB, where
 from views.player_views import ViewJoueur
 from models.player_model import Joueur
 
@@ -9,6 +9,73 @@ class PlayerController:
         data = ViewJoueur.get_data_joueur()
         joueur = Joueur(data[0], data[1], data[2], data[3], data[4])
         return joueur
+
+    @classmethod
+    def load_player(cls):
+        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        players_table = db.table("players_list")
+        serialized_players = players_table.all()
+        nom_joueur = ViewJoueur.get_player_name()
+        loaded_player = []
+
+        while loaded_player == []:
+            for index in range(0, len(serialized_players)):
+                if serialized_players[index]["name"] == nom_joueur:
+                    loaded_player = serialized_players[index]
+
+        player = PlayerController.deserialized_joueur(loaded_player)
+        return player
+
+
+    @classmethod
+    def modify_classement(cls, joueur):
+        joueur.classement = input(f"Nouveau classement de {joueur.nom}: ")
+
+    @classmethod
+    def save_player(cls):
+        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        players_table = db.table("players_list")
+        joueur = PlayerController.build_joueur()
+        nom_joueur = joueur.nom
+        serialized_player = Joueur.serializer_joueur(joueur)
+        players_table.remove(where("name") == f"{nom_joueur}")
+        players_table.insert(serialized_player)
+
+    @classmethod
+    def modify_saved_player(cls):
+        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        player_table = db.table("players_list")
+        serialized_players = player_table.all()
+
+        nom_joueur = ViewJoueur.get_player_name()
+        loaded_player = []
+
+        while loaded_player == []:
+            for index in range(0, len(serialized_players)):
+                if serialized_players[index]["name"] == nom_joueur:
+                    loaded_player = serialized_players[index]
+
+        menu = ViewJoueur.modify_data_joueur()
+        new_data = input("Entrer nouvelle donnée: ")
+
+        loaded_player[f"{menu}"] = new_data
+        player_table.remove(where("name") == f"{nom_joueur}")
+        player_table.insert(loaded_player)
+
+    @classmethod
+    def erase_player(cls):
+        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        player_table = db.table("players_list")
+        serialized_players = player_table.all()
+        nom_joueur = ViewJoueur.get_player_name()
+        loaded_player = []
+
+        while loaded_player == []:
+            for index in range(0, len(serialized_players)):
+                if serialized_players[index]["name"] == nom_joueur:
+                    loaded_player = serialized_players[index]
+
+        player_table.remove(where("name") == f"{nom_joueur}")
 
     @classmethod
     def deserialized_joueur(cls,serialized_joueur):
@@ -23,21 +90,8 @@ class PlayerController:
 
 
 if __name__ == "__main__":
-    db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
-    """joueur = PlayerController.build_joueur()
-    #print(joueur)
-    db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
-    players_table = db.table("players joueur")
-    #players_table.truncate()
-    serelized_player = joueur.serializer_joueur()
-    players_table.insert(serelized_player)"""
-    players_table = db.table("players joueur")
-    serialized_players_table = players_table.all()
-    #joueur1 = Joueur(serialized_players_table[0])
-    #print(type(joueur1))
-    participant = []
-    for player in serialized_players_table:
-        joueur = PlayerController.deserialized_joueur(player)
-        participant.append(joueur)
-        print(participant)
+    #PlayerController.erase_player()
+    joueur = PlayerController.load_player()
+    print(joueur)
+
 
