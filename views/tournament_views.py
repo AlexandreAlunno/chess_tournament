@@ -36,10 +36,15 @@ class ViewTournament:
 
             return choice
 
+    @staticmethod
+    def get_raport_tournois():
+        print("Ajouter un commentaire au tournois.")
+        commentaire = input("Commentaire: ")
+        return commentaire
 
     @staticmethod
     def get_tournament_name():
-        loaded_tournament = input("Entrer le nom du tournois à charger")
+        loaded_tournament = input("Entrer le nom du tournois: ")
         return loaded_tournament
 
     @staticmethod
@@ -58,26 +63,31 @@ class ViewTournament:
 
     @staticmethod
     def continuer():
+        choice = False
+        menu = 0
+
         print("Fin du tour")
-        save_tournament = input("Voulez-vous continuer le tournois ou le sauvegarder ? "
-                                    "(0 = continuer, 1 = sauvegarder) ")
-        if save_tournament == "0":
-            continuer = 0
-            return continuer
-        elif save_tournament == "1":
-            sauvegarder = 1
-            return sauvegarder
-        else:
-            print("1 = continuer, 2 = sauvegarder")
+        print("Voulez-vous continuer le tournois ou le sauvegarder ? ")
+        print("1 = Continuer.")
+        print("2 = Sauvegarder.")
 
+        while choice == False:
+            save_tournament = int(input("Choix: "))
+            if save_tournament == 1:
+                menu = 1
+                choice = True
 
+            elif save_tournament == 2:
+                menu = 1
+                choice = True
+
+            else:
+                print("1 = continuer, 2 = sauvegarder")
+
+        return menu
 
 
 
 if __name__ == "__main__":
-    #ViewTournament.get_data_tournois()
-    #debut = ViewTournament.debut_tournoi()
-    #print(debut)
-    #ViewTournament.next_turn()
-    continuer = ViewTournament.continuer()
-    print(continuer)
+    rapport = ViewTournament.get_raport_tournois()
+    print(rapport)

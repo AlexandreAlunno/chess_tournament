@@ -11,6 +11,7 @@ class Tournois:
         self.nombre_de_tour = nombre_de_tour
         self.turns = []
         self.players_list = []
+        self.report = []
 
     def serialized_tournament(self):
         serialized_tournament = {
@@ -20,7 +21,8 @@ class Tournois:
             "nombre de joueur" : self.nombre_de_joueur,
             "nombre de tour" : self.nombre_de_tour,
             "tours": [],
-            "player_list" : []
+            "player_list" : [],
+            "Raport" : self.report
         }
         return serialized_tournament
 

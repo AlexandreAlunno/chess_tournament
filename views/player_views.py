@@ -60,7 +60,30 @@ class ViewJoueur:
             else:
                 print("Entrer 1 / 2 / 3 / 4 / 5")
 
+    @staticmethod
+    def alphabetical_numeral():
+        choose = False
+        menu = 0
 
+        print("Trie alphabetique ou par classement ?")
+        print("1 = Alphabetique")
+        print("2 = Classement")
+
+        while choose == False:
+            choice = int(input("Choix de menu: "))
+
+            if choice == 1:
+                menu = 1
+                choose = True
+
+            elif choice == 2:
+                menu = 2
+                choose =True
+
+            else:
+                print("Entrer 1 / 2")
+
+        return menu
 
 if __name__ == "__main__":
     ViewJoueur.get_data_joueur()

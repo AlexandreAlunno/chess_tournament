@@ -49,6 +49,7 @@ class MainController:
                             PlayerController.modify_classement(joueur)
                             serialized_tournois["player_list"].append(joueur.serializer_joueur())
 
+                        TournamentController.write_report(tournois)
                         TournamentController.save_tournament(serialized_tournois)
                         fin_tournois = True
                         print("Tournois fini et sauvegardé")
@@ -58,6 +59,7 @@ class MainController:
                         PlayerController.modify_classement(joueur)
                         serialized_tournois["player_list"].append(joueur.serializer_joueur())
 
+                    TournamentController.write_report(tournois)
                     TournamentController.save_tournament(serialized_tournois)
                     fin_tournois = True
                     print("Tournois fini et sauvegardé")
@@ -110,6 +112,7 @@ class MainController:
                                 player_list.append(serialized_player)
                                 loaded_tournament["player_list"] = player_list
 
+                            TournamentController.write_report(tournament)
                             table_tournois.remove(where("nom") == f"{nom_tournois}")
                             TournamentController.save_tournament(loaded_tournament)
                             fin_tournois = True
@@ -121,12 +124,12 @@ class MainController:
                             player_list.append(serialized_player)
                             loaded_tournament["player_list"] = player_list
 
+                        TournamentController.write_report(tournament)
                         table_tournois.remove(where("nom") == f"{nom_tournois}")
                         TournamentController.save_tournament(loaded_tournament)
                         fin_tournois = True
                         print("tournois fini")
                         break
-
 
     @classmethod
     def manage_player(cls):
@@ -137,6 +140,25 @@ class MainController:
             PlayerController.save_player()
         elif menu == 3:
             PlayerController.erase_player()
+
+    @classmethod
+    def reports(cls):
+        menu = MainView.menu_repports()
+
+        if menu == 1:
+            PlayerController.display_players()
+
+        elif menu == 2:
+            TournamentController.displayer_tournament_player()
+
+        elif menu == 3:
+            TournamentController.display_tournaments()
+
+        elif menu == 4:
+            TournamentController.display_matchs()
+
+        elif menu == 5:
+            pass
 
 
 if __name__ == "__main__":

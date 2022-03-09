@@ -10,6 +10,7 @@ class MainView:
         print("2 = Charger un tournois existant.")
         print("3 = Gestion des joueurs.")
         print("4 = Afficher rapport.")
+        print("5 = Arreter le programme.")
 
         while choose == False:
 
@@ -34,6 +35,11 @@ class MainView:
                 choose = True
                 return menu
 
+            elif choice == "5":
+                menu = 5
+                choose = True
+                return menu
+
             else:
                 print("Entrer 1 / 2 / 3 / 4")
 
@@ -46,30 +52,35 @@ class MainView:
         print("1 = Modifier joueur.")
         print("2 = Enregistrer nouveau joueur.")
         print("3 = Supprimer joueur.")
+        print("4 = Retour menu précedent")
 
         while choose == False:
             choice = int(input("Choix de menu: "))
 
             if choice == 1:
                 menu = 1
-                chose = True
+                choose = True
                 return menu
 
             elif choice == 2:
                 menu = 2
-                chose = True
+                choose = True
                 return menu
 
             elif choice == 3:
                 menu = 3
-                chose = True
+                choose = True
                 return menu
+
+            elif choice == 4:
+                choose = True
+                pass
 
             else:
                 print("Entrer 1 / 2 / 3")
 
     @staticmethod
-    def menu_rapport():
+    def menu_repports():
         choose = False
         menu = 0
         print("Affichage des rapports:")
@@ -77,7 +88,7 @@ class MainView:
         print("2 = Afficher tout les joueurs d'un tournois.")
         print("3 = Afficher tout les tournois enregistrés")
         print("4 = Afficher les tours d'un tournois.")
-        print("5 = Afficher tout les matchs d'un tournois.")
+        print("5 = Retour menu précedent")
 
         while choose == False:
             choice = int(input("Choix de menu: "))
@@ -103,7 +114,7 @@ class MainView:
                 choose = True
 
             else:
-                print("Entrer 1 / 2 / 3 / 4 / 5")
+                print("Entrer 1 / 2 / 3 / 4")
 
         return menu
 

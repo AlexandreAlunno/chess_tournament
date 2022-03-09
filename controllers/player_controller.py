@@ -88,10 +88,36 @@ class PlayerController:
         joueur = Joueur(nom=nom, prenom=prenom, date_de_naissance=date_de_naissance, sexe=sexe, classement=classement, point=score)
         return joueur
 
+    @classmethod
+    def display_players_alphabethical(cls):
+        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        player_table = db.table("players_list")
+        players_list = player_table.all()
+        players_list = sorted(players_list, key=lambda player: player["name"], reverse=False)
+        for player in players_list:
+            print(f'Nom : {player["name"]}, Prenom: {player["prenom"]}, Classement: {player["classement"]}')
+
+    @classmethod
+    def display_players_classement(cls):
+        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        player_table = db.table("players_list")
+        players_list = player_table.all()
+        players_list = sorted(players_list, key=lambda player: player["classement"], reverse=False)
+        for player in players_list:
+            print(f'Nom : {player["name"]}, Prenom: {player["prenom"]}, Classement: {player["classement"]}')
+
+    @classmethod
+    def display_players(cls):
+        menu = ViewJoueur.alphabetical_numeral()
+
+        if menu == 1:
+            PlayerController.display_players_alphabethical()
+
+        elif menu == 2:
+            PlayerController.display_players_classement()
+
 
 if __name__ == "__main__":
-    #PlayerController.erase_player()
-    joueur = PlayerController.load_player()
-    print(joueur)
-
+    PlayerController.display_players_alphabethical()
+    PlayerController.display_players_classement()
 
