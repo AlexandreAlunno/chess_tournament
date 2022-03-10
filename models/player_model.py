@@ -10,12 +10,12 @@ class Joueur:
 
     def serializer_joueur(self):
         serialized_joueur = {
-            "name" : self.nom,
-            "prenom" : self.prenom,
-            "date_de_naissance" : self.date,
-            "sexe" : self.sexe,
-            "classement" : self.classement,
-            "score" : self.point
+            "name": self.nom,
+            "prenom": self.prenom,
+            "date_de_naissance": self.date,
+            "sexe": self.sexe,
+            "classement": self.classement,
+            "score": self.point
         }
         return serialized_joueur
 

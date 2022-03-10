@@ -63,7 +63,7 @@ class MainController:
     def load_tournament(cls):
         fin_tournois = False
 
-        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        db = TinyDB("D:\\Formation python\\chess_tournamentv2\\db.json")
         table_tournois = db.table("tournois")
 
         player_list = []

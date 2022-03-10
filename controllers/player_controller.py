@@ -63,7 +63,7 @@ class PlayerController:
 
     @classmethod
     def erase_player(cls):
-        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        db = TinyDB("D:\\Formation python\\chess_tournamentv2\\db.json")
         player_table = db.table("players_list")
         serialized_players = player_table.all()
         nom_joueur = ViewJoueur.get_player_name()
@@ -90,7 +90,7 @@ class PlayerController:
 
     @classmethod
     def display_players_alphabethical(cls):
-        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        db = TinyDB("D:\\Formation python\\chess_tournamentv2\\db.json")
         player_table = db.table("players_list")
         players_list = player_table.all()
         players_list = sorted(players_list, key=lambda player: player["name"], reverse=False)
@@ -99,7 +99,7 @@ class PlayerController:
 
     @classmethod
     def display_players_classement(cls):
-        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        db = TinyDB("D:\\Formation python\\chess_tournamentv2\\db.json")
         player_table = db.table("players_list")
         players_list = player_table.all()
         players_list = sorted(players_list, key=lambda player: player["classement"], reverse=False)

@@ -12,14 +12,14 @@ class Tournois:
 
     def serialized_tournament(self):
         serialized_tournament = {
-            "nom" : self.nom,
-            "lieu" : self.lieu,
-            "date" : self.date,
-            "nombre de joueur" : self.nombre_de_joueur,
-            "nombre de tour" : self.nombre_de_tour,
+            "nom": self.nom,
+            "lieu": self.lieu,
+            "date": self.date,
+            "nombre de joueur": self.nombre_de_joueur,
+            "nombre de tour": self.nombre_de_tour,
             "tours": [],
-            "player_list" : [],
-            "Raport" : self.report
+            "player_list": [],
+            "Raport": self.report
         }
         return serialized_tournament
 

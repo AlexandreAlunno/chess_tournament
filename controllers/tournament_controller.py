@@ -50,14 +50,14 @@ class TournamentController:
 
     @classmethod
     def save_tournament(cls, serialized_tournament):
-        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        db = TinyDB("D:\\Formation python\\chess_tournamentv2\\db.json")
         tournament_table = db.table("tournois")
         tournament_table.insert(serialized_tournament)
         return tournament_table
 
     @classmethod
     def load_tournament(cls):
-        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        db = TinyDB("D:\\Formation python\\chess_tournamentv2\\db.json")
         table_tournois = db.table("tournois")
         serializied_tournaments = table_tournois.all()
 
@@ -97,7 +97,7 @@ class TournamentController:
 
     @classmethod
     def display_tournaments(cls):
-        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        db = TinyDB("D:\\Formation python\\chess_tournamentv2\\db.json")
         table_tournois = db.table("tournois")
         serializied_tournaments = table_tournois.all()
 
