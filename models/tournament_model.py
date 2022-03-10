@@ -1,6 +1,3 @@
-from models.turn_model import Tours
-from models.player_model import Joueur
-
 class Tournois:
 
     def __init__(self, nom, lieu, date, nombre_de_joueur, nombre_de_tour=4):

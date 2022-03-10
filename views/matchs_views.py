@@ -1,7 +1,3 @@
-from models.match_model import Match
-import time
-
-
 class MatchView:
     @staticmethod
     def get_results(match):
@@ -25,5 +21,4 @@ class MatchView:
 
 
 if __name__ == "__main__":
-    MatchView.get_results(match)
     MatchView.fin_match()

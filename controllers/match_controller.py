@@ -1,7 +1,7 @@
 from views.matchs_views import MatchView
 from models.match_model import Match
-from models.player_model import Joueur
 from controllers.player_controller import PlayerController
+
 
 class MatchController:
     @classmethod
@@ -26,6 +26,3 @@ class MatchController:
         match = Match(joueur1=joueur1, joueur2=joueur2)
         match.resultat = resultat
         return match
-
-
-

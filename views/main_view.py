@@ -118,7 +118,6 @@ class MainView:
 
         return menu
 
-
     @staticmethod
     def end_program():
         end_program = False
@@ -133,6 +132,7 @@ class MainView:
             else:
                 print("1=non/2=oui")
         return end_program
+
 
 if __name__ == "__main__":
     MainView.end_program()

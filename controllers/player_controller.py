@@ -26,7 +26,6 @@ class PlayerController:
         player = PlayerController.deserialized_joueur(loaded_player)
         return player
 
-
     @classmethod
     def modify_classement(cls, joueur):
         joueur.classement = input(f"Nouveau classement de {joueur.nom}: ")
@@ -78,14 +77,15 @@ class PlayerController:
         player_table.remove(where("name") == f"{nom_joueur}")
 
     @classmethod
-    def deserialized_joueur(cls,serialized_joueur):
+    def deserialized_joueur(cls, serialized_joueur):
         nom = serialized_joueur["name"]
         prenom = serialized_joueur["prenom"]
         date_de_naissance = serialized_joueur["date_de_naissance"]
         sexe = serialized_joueur["sexe"]
         classement = serialized_joueur["classement"]
         score = serialized_joueur["score"]
-        joueur = Joueur(nom=nom, prenom=prenom, date_de_naissance=date_de_naissance, sexe=sexe, classement=classement, point=score)
+        joueur = Joueur(nom=nom, prenom=prenom, date_de_naissance=date_de_naissance,
+                        sexe=sexe, classement=classement, point=score)
         return joueur
 
     @classmethod
@@ -120,4 +120,3 @@ class PlayerController:
 if __name__ == "__main__":
     PlayerController.display_players_alphabethical()
     PlayerController.display_players_classement()
-

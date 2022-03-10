@@ -1,10 +1,4 @@
-from models.tournament_model import Tournois
-from models.player_model import Joueur
-from models.turn_model import Tours
-from models.match_model import Match
 from views.tournament_views import ViewTournament
-from views.player_views import ViewJoueur
-from views.matchs_views import MatchView
 from views.main_view import MainView
 from controllers.player_controller import PlayerController
 from controllers.turn_controller import TurnController
@@ -162,11 +156,4 @@ class MainController:
 
 
 if __name__ == "__main__":
-    db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
-    table_tournois = db.table("tournois")
     MainController.new_tournament()
-    #MainController.load_tournament()
-    #table_tournois.truncate()
-
-
-

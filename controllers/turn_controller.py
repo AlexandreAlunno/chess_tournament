@@ -1,8 +1,5 @@
 from datetime import datetime, date
 from models.turn_model import Tours
-from models.match_model import Match
-from models.player_model import Joueur
-from views.matchs_views import MatchView
 from controllers.match_controller import MatchController
 
 
@@ -57,7 +54,6 @@ class TurnController:
     @classmethod
     def deserialized_turn(cls, serialized_turn):
         nom_tour = serialized_turn["nom_tour"]
-        match_list = serialized_turn["match_list"]
         date_debut = serialized_turn["début"]
         date_fin = serialized_turn["fin"]
         deserialized_match_list = []
@@ -69,10 +65,3 @@ class TurnController:
         tour.date_debut = date_debut
         tour.date_fin = date_fin
         return tour
-
-
-if __name__ == "__main__":
-    tournois = TournamentController.build_tournois()
-    round_list = TurnController.build_turns(tournois)
-
-

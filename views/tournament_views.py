@@ -87,7 +87,5 @@ class ViewTournament:
         return menu
 
 
-
 if __name__ == "__main__":
-    rapport = ViewTournament.get_raport_tournois()
-    print(rapport)
+    ViewTournament.get_raport_tournois()

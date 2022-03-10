@@ -1,5 +1,4 @@
 from controllers.main_controller import MainController
-
 from views.main_view import MainView
 
 end_program = False

@@ -1,5 +1,6 @@
 from models.player_model import Joueur
 
+
 class Match:
 
     def __init__(self, joueur1, joueur2):
@@ -17,4 +18,3 @@ class Match:
 
     def __str__(self):
         return f"{self.joueur1.prenom} / {self.joueur2.prenom}, {self.resultat}"
-

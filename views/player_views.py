@@ -1,4 +1,3 @@
-
 class ViewJoueur:
     @staticmethod
     def get_data_joueur():
@@ -84,6 +83,7 @@ class ViewJoueur:
                 print("Entrer 1 / 2")
 
         return menu
+
 
 if __name__ == "__main__":
     ViewJoueur.get_data_joueur()
