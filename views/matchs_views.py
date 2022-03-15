@@ -18,7 +18,3 @@ class MatchView:
                 match_fini = False
             else:
                 print("1 = oui / 2 = non")
-
-
-if __name__ == "__main__":
-    MatchView.fin_match()

@@ -85,7 +85,3 @@ class ViewTournament:
                 print("1 = continuer, 2 = sauvegarder")
 
         return menu
-
-
-if __name__ == "__main__":
-    ViewTournament.get_raport_tournois()

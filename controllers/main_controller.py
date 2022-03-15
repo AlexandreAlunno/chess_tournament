@@ -1,5 +1,6 @@
 from views.tournament_views import ViewTournament
 from views.main_view import MainView
+from views.turn_view import ViewTurn
 from controllers.player_controller import PlayerController
 from controllers.turn_controller import TurnController
 from controllers.tournament_controller import TournamentController
@@ -25,6 +26,7 @@ class MainController:
                 TurnController.date_heure_debut(turn)
                 seriallized_round = turn.serializer_tour()
                 match_list = TurnController.build_match_list(participant, turn)
+                ViewTurn.display_match(match_list)
 
                 for match in match_list:
                     MatchController.resultat(match)
@@ -84,6 +86,7 @@ class MainController:
                 for round in round_list:
                     TurnController.date_heure_debut(round)
                     match_list = TurnController.build_match_list(participant, round)
+                    ViewTurn.display_match(match_list)
                     TurnController.date_heure_debut(round)
                     seriallized_round = round.serializer_tour()
 
@@ -153,7 +156,3 @@ class MainController:
 
         elif menu == 5:
             pass
-
-
-if __name__ == "__main__":
-    MainController.new_tournament()

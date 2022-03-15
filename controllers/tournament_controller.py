@@ -134,7 +134,3 @@ class TournamentController:
             for resultat in match:
                 resultat = resultat["resultat"]
                 print(resultat)
-
-
-if __name__ == "__main__":
-    TournamentController.display_matchs()

@@ -12,7 +12,7 @@ class PlayerController:
 
     @classmethod
     def load_player(cls):
-        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        db = TinyDB("D:\\Formation python\\chess_tournamentv2\\db.json")
         players_table = db.table("players_list")
         serialized_players = players_table.all()
         nom_joueur = ViewJoueur.get_player_name()
@@ -32,7 +32,7 @@ class PlayerController:
 
     @classmethod
     def save_player(cls):
-        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        db = TinyDB("D:\\Formation python\\chess_tournamentv2\\db.json")
         players_table = db.table("players_list")
         joueur = PlayerController.build_joueur()
         nom_joueur = joueur.nom
@@ -42,7 +42,7 @@ class PlayerController:
 
     @classmethod
     def modify_saved_player(cls):
-        db = TinyDB("D:\\Formation python\\chess_tournament v2\\db.json")
+        db = TinyDB("D:\\Formation python\\chess_tournamentv2\\db.json")
         player_table = db.table("players_list")
         serialized_players = player_table.all()
 
@@ -115,8 +115,3 @@ class PlayerController:
 
         elif menu == 2:
             PlayerController.display_players_classement()
-
-
-if __name__ == "__main__":
-    PlayerController.display_players_alphabethical()
-    PlayerController.display_players_classement()

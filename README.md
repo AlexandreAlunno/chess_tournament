@@ -46,5 +46,6 @@ Manage the players saved in the db or save new players \
 Display elements from a choosen tournament (turns, matchs, player).
 ***
 ###Create Flake8 report :
-
+To generate a Flake8 report, in the cmd, use the line: flake8 --format=html --htmldir=flake-report \
+It will generate and html report in the flake-report folder for each file of the program
 

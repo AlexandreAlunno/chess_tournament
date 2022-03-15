@@ -17,4 +17,4 @@ class Match:
         return serialized_match
 
     def __str__(self):
-        return f"{self.joueur1.prenom} / {self.joueur2.prenom}, {self.resultat}"
+        return f"{self.joueur1.prenom} Vs {self.joueur2.prenom}"

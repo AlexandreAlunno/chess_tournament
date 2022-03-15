@@ -77,13 +77,9 @@ class ViewJoueur:
 
             elif choice == 2:
                 menu = 2
-                choose =True
+                choose = True
 
             else:
                 print("Entrer 1 / 2")
 
         return menu
-
-
-if __name__ == "__main__":
-    ViewJoueur.get_data_joueur()

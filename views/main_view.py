@@ -132,7 +132,3 @@ class MainView:
             else:
                 print("1=non/2=oui")
         return end_program
-
-
-if __name__ == "__main__":
-    MainView.end_program()
